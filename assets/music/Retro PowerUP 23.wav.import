@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://de18qpcb1jqmc"
+path="res://.godot/imported/Retro PowerUP 23.wav-70ec8a1d8cf786ed6b06c081d09faa8a.sample"
+
+[deps]
+
+source_file="res://assets/music/Retro PowerUP 23.wav"
+dest_files=["res://.godot/imported/Retro PowerUP 23.wav-70ec8a1d8cf786ed6b06c081d09faa8a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

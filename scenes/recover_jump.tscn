@@ -1,0 +1,111 @@
+[gd_scene load_steps=13 format=3 uid="uid://bbncl2wf82cb0"]
+
+[ext_resource type="Script" path="res://scripts/recover_jump.gd" id="1_p0yd6"]
+[ext_resource type="Texture2D" uid="uid://d20aca3dapt7f" path="res://assets/industrial.v2.png" id="2_qu5ln"]
+[ext_resource type="AudioStream" uid="uid://de18qpcb1jqmc" path="res://assets/music/Retro PowerUP 23.wav" id="3_o53q3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxay4"]
+atlas = ExtResource("2_qu5ln")
+region = Rect2(144, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8ydg"]
+atlas = ExtResource("2_qu5ln")
+region = Rect2(128, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbayp"]
+atlas = ExtResource("2_qu5ln")
+region = Rect2(128, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr6el"]
+atlas = ExtResource("2_qu5ln")
+region = Rect2(144, 160, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f0b1g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxay4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8ydg")
+}],
+"loop": false,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbayp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vr6el")
+}],
+"loop": false,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o30ry"]
+radius = 13.0
+
+[sub_resource type="Curve" id="Curve_attx8"]
+_data = [Vector2(0.0572519, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.381132), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_3em1l"]
+offsets = PackedFloat32Array(0, 0.33913, 0.73913)
+colors = PackedColorArray(1, 0.309804, 0.470588, 1, 1, 0.68, 0.72, 0.779, 0, 0, 0, 0.786)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cuvnv"]
+gradient = SubResource("Gradient_3em1l")
+fill = 1
+fill_from = Vector2(0.521472, 0.493865)
+
+[node name="RecoverJump" type="Area2D"]
+collision_layer = 64
+collision_mask = 2
+script = ExtResource("1_p0yd6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.14258, 1.14258)
+sprite_frames = SubResource("SpriteFrames_f0b1g")
+animation = &"on"
+frame = 1
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1, 1)
+shape = SubResource("CircleShape2D_o30ry")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(1, 1)
+emitting = false
+amount = 20
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 0.01
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 10)
+initial_velocity_min = 40.54
+initial_velocity_max = 121.62
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_attx8")
+color = Color(1, 0.309804, 0.470588, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = -11
+position = Vector2(1.19209e-07, 0)
+scale = Vector2(0.583287, 0.449348)
+color = Color(0.625969, 0.690199, 0.747286, 1)
+texture = SubResource("GradientTexture2D_cuvnv")
+texture_scale = 0.54
+
+[node name="sfx_pick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_o53q3")
+volume_db = -20.0
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

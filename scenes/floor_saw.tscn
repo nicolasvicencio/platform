@@ -1,0 +1,124 @@
+[gd_scene load_steps=11 format=3 uid="uid://crakhxj5wcupl"]
+
+[ext_resource type="Script" path="res://scripts/floor_saw.gd" id="1_2j8pr"]
+[ext_resource type="Texture2D" uid="uid://50kcohafh0pn" path="res://assets/platformIndustrial_069.png" id="1_a14jl"]
+[ext_resource type="Texture2D" uid="uid://d10trq80a6wtp" path="res://assets/platformIndustrial_068.png" id="2_dx17h"]
+
+[sub_resource type="Curve2D" id="Curve2D_0rv1c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -200, 8, 0, 0, 0, 0, 200, 8, 0, 0, 0, 0, -200, 8)
+}
+point_count = 3
+
+[sub_resource type="Animation" id="Animation_kksju"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D/Area2D/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_dx17h")]
+}
+
+[sub_resource type="Animation" id="Animation_jmwxe"]
+resource_name = "default"
+length = 0.035
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D/Area2D/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_dx17h"), ExtResource("1_a14jl")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ufkc6"]
+_data = {
+"RESET": SubResource("Animation_kksju"),
+"default": SubResource("Animation_jmwxe")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kj4n7"]
+radius = 36.0
+
+[sub_resource type="Curve" id="Curve_7wiei"]
+_data = [Vector2(0.019084, 1), 0.0, 0.0, 0, 0, Vector2(0.935115, 0.471698), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_rbyj3"]
+offsets = PackedFloat32Array(0, 0.473214, 0.955357)
+colors = PackedColorArray(0.575344, 0.617148, 0.694337, 1, 0.211765, 0.239216, 0.290196, 1, 0.241369, 0.271558, 0.327611, 1)
+
+[node name="FloorSaw" type="Path2D"]
+scale = Vector2(0.5, 0.5)
+curve = SubResource("Curve2D_0rv1c")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(-200, 8)
+rotation = 0.0108299
+rotates = false
+script = ExtResource("1_2j8pr")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
+visible = false
+remote_path = NodePath("../Area2D")
+
+[node name="Area2D" type="AnimatableBody2D" parent="PathFollow2D"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PathFollow2D/Area2D"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_ufkc6")
+}
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Area2D"]
+visible = false
+position = Vector2(-0.0216606, -1.99988)
+shape = SubResource("CircleShape2D_kj4n7")
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/Area2D"]
+modulate = Color(0.477221, 0.520753, 0.601317, 1)
+position = Vector2(-0.38987, -35.9979)
+texture = ExtResource("2_dx17h")
+
+[node name="particle_sparks_right" type="CPUParticles2D" parent="PathFollow2D/Area2D"]
+position = Vector2(33.998, -0.36821)
+rotation = -0.0108299
+amount = 15
+lifetime = 0.1
+gravity = Vector2(10, -30)
+initial_velocity_min = 108.0
+initial_velocity_max = 200.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_7wiei")
+color_ramp = SubResource("Gradient_rbyj3")
+hue_variation_min = 0.5
+hue_variation_max = 1.0
+
+[node name="particle_sparks_left" type="CPUParticles2D" parent="PathFollow2D/Area2D"]
+position = Vector2(-36.0195, -1.61001)
+rotation = -0.0216598
+amount = 15
+lifetime = 0.1
+direction = Vector2(-1, 0)
+gravity = Vector2(-10, -20)
+initial_velocity_min = 108.0
+initial_velocity_max = 200.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_7wiei")
+color_ramp = SubResource("Gradient_rbyj3")
+hue_variation_min = 0.5
+hue_variation_max = 1.0

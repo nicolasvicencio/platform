@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2eb1xkqy7ljx"]
+
+[ext_resource type="Texture2D" uid="uid://ddulvk07u7q0h" path="res://assets/dash.png" id="1_5kex0"]
+[ext_resource type="Script" path="res://scripts/ghost.gd" id="1_u7rpr"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_102bo"]
+blend_mode = 1
+
+[node name="Ghost" type="Sprite2D"]
+modulate = Color(0.28485, 0.28485, 0.28485, 1)
+material = SubResource("CanvasItemMaterial_102bo")
+texture = ExtResource("1_5kex0")
+script = ExtResource("1_u7rpr")

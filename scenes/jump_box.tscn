@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://ttwxw0ab8sj4"]
+
+[ext_resource type="Script" path="res://scripts/jump_box.gd" id="1_ifjnq"]
+[ext_resource type="Texture2D" uid="uid://dh6uvxqj2a7wo" path="res://assets/jump_box.png" id="2_puh8h"]
+[ext_resource type="AudioStream" uid="uid://bxyx2dhto8qn6" path="res://assets/music/Retro Jump Simple B 05.wav" id="3_p6kp2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc6xq"]
+atlas = ExtResource("2_puh8h")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcyyv"]
+atlas = ExtResource("2_puh8h")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w087e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vc6xq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lcyyv")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dm4gs"]
+size = Vector2(16, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5pf4q"]
+size = Vector2(16, 1)
+
+[node name="JumpBox" type="AnimatableBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_ifjnq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w087e")
+frame = 1
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_dm4gs")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_5pf4q")
+
+[node name="sfx_jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_p6kp2")
+volume_db = -10.0
+
+[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]

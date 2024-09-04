@@ -1,0 +1,219 @@
+[gd_scene load_steps=24 format=3 uid="uid://bq3mtsw8e48fg"]
+
+[ext_resource type="Script" path="res://scripts/button_door.gd" id="1_ja0h0"]
+[ext_resource type="Texture2D" uid="uid://d20aca3dapt7f" path="res://assets/industrial.v2.png" id="1_shxw3"]
+[ext_resource type="AudioStream" uid="uid://bxd57ysip8xfp" path="res://assets/music/Retro FootStep Krushed Landing 01.wav" id="3_v84mb"]
+[ext_resource type="AudioStream" uid="uid://dm55gx83xtwba" path="res://assets/music/Retro Explosion Short 01.wav" id="4_s254d"]
+[ext_resource type="AudioStream" uid="uid://b6gcadmmeb4tl" path="res://assets/music/Retro Explosion Long 02.wav" id="5_3f2tw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2r3w1"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(64, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxb18"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(80, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ay8th"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(80, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4068x"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(64, 176, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b0ngu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2r3w1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxb18")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ay8th")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4068x")
+}],
+"loop": false,
+"name": &"reset",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nsab8"]
+size = Vector2(16, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdr1t"]
+size = Vector2(14, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofpgv"]
+size = Vector2(12, 15.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i43py"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(48, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw437"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(32, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k24i7"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(16, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ubpj"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(0, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ignyr"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(0, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1kr7"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(16, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mt2l"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(32, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kecl5"]
+atlas = ExtResource("1_shxw3")
+region = Rect2(48, 96, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ram8u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i43py")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kw437")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k24i7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ubpj")
+}],
+"loop": false,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ignyr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1kr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mt2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kecl5")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="Curve" id="Curve_oxvmw"]
+_data = [Vector2(0.0725191, 1), 0.0, 0.0, 0, 0, Vector2(0.90458, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="ButtonDoor" type="Node2D"]
+position = Vector2(0, 1)
+script = ExtResource("1_ja0h0")
+
+[node name="Button" type="AnimatableBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="button_animation" type="AnimatedSprite2D" parent="Button"]
+position = Vector2(-1, 23)
+sprite_frames = SubResource("SpriteFrames_b0ngu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Button"]
+position = Vector2(-1, 30)
+shape = SubResource("RectangleShape2D_nsab8")
+
+[node name="Player_collider" type="Area2D" parent="Button"]
+position = Vector2(-1, 30)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Player_collider" type="CollisionShape2D" parent="Button/Player_collider"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_jdr1t")
+
+[node name="sfx_button" type="AudioStreamPlayer" parent="Button"]
+stream = ExtResource("3_v84mb")
+volume_db = -10.0
+
+[node name="Door" type="AnimatableBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
+light_mask = 4
+visibility_layer = 2
+position = Vector2(-63, 7.25)
+shape = SubResource("RectangleShape2D_ofpgv")
+
+[node name="door_animation" type="AnimatedSprite2D" parent="Door"]
+position = Vector2(-63, 7)
+sprite_frames = SubResource("SpriteFrames_ram8u")
+animation = &"open"
+
+[node name="Door2" type="AnimatableBody2D" parent="."]
+position = Vector2(0, -1)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door2"]
+light_mask = 4
+visibility_layer = 2
+position = Vector2(-63, 24)
+shape = SubResource("RectangleShape2D_ofpgv")
+
+[node name="door_animation" type="AnimatedSprite2D" parent="Door2"]
+position = Vector2(-63, 24)
+rotation = -3.14159
+sprite_frames = SubResource("SpriteFrames_ram8u")
+animation = &"close"
+frame = 3
+frame_progress = 1.0
+
+[node name="sfx_door_open" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_s254d")
+volume_db = -5.0
+
+[node name="sfx_door_close" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_3f2tw")
+volume_db = -5.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+
+[node name="particle_dust" type="CPUParticles2D" parent="."]
+position = Vector2(-63, -1)
+emitting = false
+lifetime = 0.4
+one_shot = true
+emission_shape = 3
+emission_rect_extents = Vector2(8, 1)
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_oxvmw")
+color = Color(0.639445, 0.679413, 0.78352, 1)
+
+[connection signal="body_shape_entered" from="Button/Player_collider" to="." method="_on_player_collider_body_shape_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://c87jcxvvqvcdp"]
+
+[ext_resource type="Script" path="res://scripts/air_saw.gd" id="1_4ul1s"]
+[ext_resource type="Texture2D" uid="uid://dda6pbgckexa6" path="res://assets/platformIndustrial_067.png" id="2_101r2"]
+
+[sub_resource type="Curve2D" id="Curve2D_aayow"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6q0s0"]
+radius = 36.0
+
+[sub_resource type="Animation" id="Animation_emutu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_nxw2f"]
+resource_name = "default"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_101r2")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.698132]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xurs4"]
+_data = {
+"RESET": SubResource("Animation_emutu"),
+"default": SubResource("Animation_nxw2f")
+}
+
+[node name="Path2D" type="Path2D"]
+scale = Vector2(0.5, 0.5)
+curve = SubResource("Curve2D_aayow")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+script = ExtResource("1_4ul1s")
+metadata/_edit_lock_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
+remote_path = NodePath("../saw")
+
+[node name="saw" type="AnimatableBody2D" parent="PathFollow2D"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/saw"]
+modulate = Color(0.478431, 0.521569, 0.6, 1)
+texture = ExtResource("2_101r2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/saw"]
+shape = SubResource("CircleShape2D_6q0s0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PathFollow2D/saw"]
+libraries = {
+"": SubResource("AnimationLibrary_xurs4")
+}
+autoplay = "default"
