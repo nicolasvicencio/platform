@@ -15,15 +15,17 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	time += 1
 	sprite_2d.position += Vector2(0, sin(time) * 2)
-	particles_dust.emitting = true
+	particles_dust.emitting = true 
 
 func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.name == "Player":
 		timer.start()
+		$AudioStreamPlayer.play()
 		Input.start_joy_vibration(0,0.5,0.5,0.4)
 		set_process(true)
 
 func _on_timer_timeout() -> void:
+	$AudioStreamPlayer.stop()
 	particles_explosion.emitting = true
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a",0, 0.3)

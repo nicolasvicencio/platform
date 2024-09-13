@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://vedn637j6ike"]
+[gd_scene load_steps=9 format=3 uid="uid://vedn637j6ike"]
 
 [ext_resource type="Script" path="res://scripts/platform_breakable.gd" id="1_8jjtd"]
 [ext_resource type="Texture2D" uid="uid://d2tspl5v1b5kq" path="res://assets/platform-break.png" id="2_2aowh"]
+[ext_resource type="AudioStream" uid="uid://chh57vnpkbf5w" path="res://assets/music/campfire.wav" id="3_jwm7c"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m4kbw"]
 
@@ -79,6 +80,10 @@ color = Color(0.26954, 0.293287, 0.399353, 1)
 process_callback = 0
 wait_time = 2.0
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_jwm7c")
+volume_db = -5.0
 
 [connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

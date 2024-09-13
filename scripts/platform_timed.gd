@@ -21,10 +21,12 @@ func close_platform():
 	animated_sprite_2d.play("close")
 	collision_shape_2d.set_deferred("disabled", true)
 	await get_tree().create_timer(3).timeout
+	$AudioStreamPlayer2D.play()
 	open_platform()
-
+	
 func open_platform():
 	collision_shape_2d.set_deferred("disabled", false)
 	animated_sprite_2d.play("open")
 	await get_tree().create_timer(3).timeout
+	$AudioStreamPlayer2D.play()
 	close_platform()
