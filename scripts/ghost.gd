@@ -17,7 +17,7 @@ func set_properties(tx_position, tx_scale):
 	
 func ghosting():
 	var tween = create_tween()
-	tween.tween_property(self, 'self_modulate', Color(1,1,1,0), 0.75)
+	tween.tween_property(self, 'self_modulate', Color(1,1,1,0), 0.3)
 	await tween.finished
 	
 	queue_free()

@@ -15,13 +15,18 @@ metroidvania_system/settings_file="res://MetSysSettings.tres"
 [application]
 
 config/name="platformer"
-run/main_scene="res://scenes/levels/level_1.tscn"
+run/main_scene="res://scenes/menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://Global.gd"
+
+[display]
+
+window/size/mode=3
+window/stretch/mode="viewport"
 
 [editor_plugins]
 

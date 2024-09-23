@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/change_camera_area.gd" id="1_qmied"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qn5mf"]
-size = Vector2(129, 29)
+size = Vector2(64.5, 2)
 
 [node name="ChangeCameraArea" type="Area2D"]
 collision_layer = 256
@@ -11,6 +11,7 @@ collision_mask = 2
 script = ExtResource("1_qmied")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(32.25, 0)
 shape = SubResource("RectangleShape2D_qn5mf")
 
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

@@ -43,7 +43,9 @@ var last_facing_direction = 1
 @onready var dash_timer: Timer = $timers/dash_timer
 @onready var ghost_timer: Timer = $timers/ghost_timer
 
-@onready var camera_2d: Camera2D = $\"../Camera2D\"
+@onready var camera_panning: Camera2D = $\"../Camera_panning\"
+@onready var camera_follow: Camera2D = $Camera_follow
+
 var camera_shake_noise: FastNoiseLite
 
 func _ready() -> void:
@@ -176,9 +178,11 @@ func _on_platform_moving_left_platform_moving_left_signal() -> void:
 
 func start_camera_shake(intensity: float):
 	var camera_offset = camera_shake_noise.get_noise_1d(Time.get_ticks_msec()) * intensity
-	camera_2d.offset.x = camera_offset
-	camera_2d.offset.y = camera_offset
-
+	camera_follow.offset.x = camera_offset
+	camera_follow.offset.y = camera_offset
+	camera_panning.offset.x = camera_offset
+	camera_panning.offset.y = camera_offset
+	
 func _on_button_door_button_pressed_signal() -> void:
 	var camera_tween = create_tween()
 	camera_tween.tween_method(start_camera_shake, 6.0, 1.0, 0.8)
@@ -186,8 +190,8 @@ func _on_button_door_button_pressed_signal() -> void:
 func _on_recover_jump_body_entered_recover_jump() -> void:
 	can_dash = true
 
-func _on_camera_hit_box_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	camera_2d.camera_follow()
+
+		
 "
 
 [sub_resource type="Gradient" id="Gradient_8n0sq"]

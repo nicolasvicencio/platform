@@ -1,5 +1,8 @@
 extends Camera2D
 @onready var player: CharacterBody2D = $"../Player"
+var SCREEN_SIZE = Vector2(460,260)
+var current_screen 
+@onready var camera_follow: Camera2D = $"../Player/Camera_follow"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -7,9 +10,12 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Global.camera_mode == 0:
+		enabled = true
+		camera_follow.enabled = false
 		camera_panning()
 	else:
-		camera_follow()
+		camera_follow.enabled = true
+		enabled = false
 
 func camera_panning():
 	position = player.position
@@ -17,7 +23,5 @@ func camera_panning():
 	var y = floor(position.y /250) * 250
 	position = Vector2(x, y)
 
-func camera_follow():
-	anchor_mode = Camera2D.ANCHOR_MODE_DRAG_CENTER
-	position = player.position
+
 	
